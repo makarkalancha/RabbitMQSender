@@ -24,8 +24,11 @@ public class Send {
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 
             String message = "Hello World!";
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
-            System.out.println(" [x] Sent '" + message + "'");
+            for (int i = 0; i < 5; i++) {
+                String tmp = message + i;
+                channel.basicPublish("", QUEUE_NAME, null, tmp.getBytes("UTF-8"));
+                System.out.println(" [x] Sent '" + tmp + "'");
+            }
         }finally {
             if(channel != null) channel.close();
             if(connection != null) connection.close();
